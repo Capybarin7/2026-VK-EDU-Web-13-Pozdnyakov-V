@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+            <form class="settingsp">
+                <h3>Registration</h3>
+                <p class="wrong">Sorry, this email address allready registred!</p>
+                <div class="rowp">
+                    <label for="logins">Login</label>
+                    <input id="logins" name="login" type="text" placeholder="Enter your login here...">
+                </div>
+                <div class="rowp">
+                    <label for="emails">Email</label>
+                    <input id="emails" name="email" type="email" placeholder="Enter your email here...">
+                </div>
+                <div class="rowp">
+                    <label for="nicknames">NickName</label>
+                    <input id="nicknames" name="nickname" type="text" placeholder="Enter your nickname here...">
+                </div>
+                <div class="rowp">
+                    <label for="passwords1">Password</label>
+                    <input id="passwords1" name="password" type="password" placeholder="Enter your password here...">
+                </div>
+                <div class="rowp">
+                    <label for="passwords2">Repeat password</label>
+                    <input id="passwords2" name="repeat_password" type="password" placeholder="Repeat your password here...">
+                </div>
+                <div class="rowp">
+                        <label>Upload avatar</label>
+                        <input class="avatarr" type="file">
+                        <button class="avchoose">choose</button>
+                </div>
+                <button class="save" type="submit">Register!</button>
+            </form>
+{% endblock %}

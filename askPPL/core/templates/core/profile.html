@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+            <form class="settingsp">
+                <h3>Settings: Nickname</h3>
+                <div class="rowp">
+                    <label for="loginp">Login</label>
+                    <input id="loginp" name="login" type="text" value="Nick" readonly>
+                </div>
+                <div class="rowp">
+                    <label for="emailp">Email</label>
+                    <input id="emailp" name="email" type="email" value="nick@mail.ru">
+                </div>
+                <div class="rowp">
+                    <label for="nicknamep">NickName</label>
+                    <input id="nicknamep" name="nickname" type="text" value="Nickname">
+                </div>
+                <div class="rowp">
+                    <label>Upload avatar</label>
+                    <div class="avatarlink">
+                    <div class="avatarp">
+                        <span>avatar</span>
+                    </div>
+                    <div>
+                        <input type="file">
+                        <button class="avchoose">choose</button>
+                    </div>
+                    </div>
+                </div>
+                <button class="save" type="submit">Save</button>
+            </form>
+{% endblock %}
