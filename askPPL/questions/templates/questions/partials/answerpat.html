@@ -1,0 +1,21 @@
+<section class="answer">
+                        <div class="photolike">
+                        <div class="d-flex flex-column align-items-center gap-3">
+                        <img class="rounded-circle object-fit-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs_l_LMJ0HukBt8HPg4hVDXxy3_4uct5DgDnes0ask6g&s" alt="Avatar">
+                        </div>
+                        </div>
+                        <div>
+                        <p class="questtext">{{ obj.text }}</p>
+                        <div class="d-flex align-items-center gap-1">
+                            <input type="checkbox" id="subscribe{{ obj.id }}" name="subscribe" {% if obj.is_correct %}checked{% endif %} disabled>
+                            <label for="subscribe{{ obj.id }}">Correct!</label>
+                        </div>
+                        </div>
+                        <div class="input-group input-group-sm w-auto ms-auto">
+                            <span class="input-group-text bg-white fw-bold px-2">{{ obj.rating }}</span>
+                            <div class="btn-group-vertical">
+                                <button type="button" class="btn btn-outline-secondary p-0 px-1 lh-1 border-bottom-0 rounded-0 fs-6">▲</button>
+                                <button type="button" class="btn btn-outline-secondary p-0 px-1 lh-1 rounded-0 fs-6">▼</button>
+                            </div>
+                        </div>
+                    </section>

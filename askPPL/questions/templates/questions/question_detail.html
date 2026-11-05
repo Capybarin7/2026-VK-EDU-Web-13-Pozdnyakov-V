@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+            <div>
+                <div>
+                        <section class="questionOne">
+                        <div class="photolike">
+                        <div class="d-flex flex-column align-items-center gap-3">
+                        <img class="rounded-circle object-fit-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs_l_LMJ0HukBt8HPg4hVDXxy3_4uct5DgDnes0ask6g&s" alt="Avatar">
+                        </div>
+                        </div>
+                        <div>
+                        <h1>{{ question.title }}</h1>
+                        <p class="questtext">{{ question.text }}</p>
+                        <div class="d-flex align-items-center gap-3">
+                        <span>Tags:</span>
+                        {% for t in question.tags %}
+                        <a href="{% url 'tag' t %}">{{ t }}</a>
+                        {% endfor %}
+                        </div>
+                        </div>
+                        <div class="input-group input-group-sm w-auto ms-auto">
+                            <span class="input-group-text bg-white fw-bold px-2">5</span>
+                            <div class="btn-group-vertical">
+                                <button type="button" class="btn btn-outline-secondary p-0 px-1 lh-1 border-bottom-0 rounded-0 fs-6">▲</button>
+                                <button type="button" class="btn btn-outline-secondary p-0 px-1 lh-1 rounded-0 fs-6">▼</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="answers">
+                    {% for answer in page_obj %}
+                    {% include 'questions/partials/answerpat.html' with obj=answer %}
+                    {% empty %}
+                    <p>Пока нет ответов на этот вопрос.</p>
+                    {% endfor %}
+                    {% include 'questions/partials/pagination.html' %}
+                    </div>
+                    <form class="newanswer">
+                    <textarea id="answer" name="answer" placeholder="Enter your answer here..."></textarea>
+                    <button class="ansquest" type="submit">Answer</button>
+                    </form>
+            </div>
+{% endblock %}
