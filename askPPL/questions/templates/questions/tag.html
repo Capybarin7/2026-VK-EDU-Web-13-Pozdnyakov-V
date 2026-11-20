@@ -8,7 +8,7 @@
                     {% for question in questions %}
                     {% include 'questions/partials/questionpat.html' with obj=question %}
                     {% empty %}
-                    <p class="text-muted">Вопросы с тэгом "{{ tag }}" не найдены.</p>
+                    <p class="text-muted">No questions with the tag "{{ tag }}" were found.</p>
                     {% endfor %}
                     {% include 'questions/partials/pagination.html' %}
                 </div>
