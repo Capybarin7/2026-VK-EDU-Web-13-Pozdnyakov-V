@@ -22,7 +22,7 @@ def tag(request, tag_name):
     return render(request, 'questions/tag.html', context={'questions': page_obj.object_list, 'page_obj': page_obj, 'tag': tag_name})
 
 def question_detail(request, question_id):
-    question = get_object_or_404(Question, id=question_id)
+    question = get_object_or_404(Question.objects.annotate(likes_count=Count('question_like', distinct = True), answers_count=Count('answers', distinct = True)), id=question_id)
     answers = question.answers.select_related('author').order_by("-createdAt")
     page_obj = paginate(answers, request, per_page=3)
     return render(request, 'questions/question_detail.html', context={ 'question': question, 'page_obj': page_obj})
