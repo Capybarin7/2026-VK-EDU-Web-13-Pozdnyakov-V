@@ -15,6 +15,7 @@ class QuestionManager(models.Manager):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Пользователь")
+    nickname = models.CharField(max_length=50, blank=True, null=True, verbose_name="Ник")
     avatar = models.ImageField(upload_to='images/', null=True, blank=True, default='images/default.png', verbose_name="Аватар")
     class Meta:
         verbose_name = "Профиль"
