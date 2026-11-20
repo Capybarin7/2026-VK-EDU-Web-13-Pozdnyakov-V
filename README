@@ -32,16 +32,28 @@
 ## Запуск через Docker Compose
 
 1. Убедитесь, что установлен и запущен Docker Desktop.
-2. Соберите и запустите контейнеры:
+
+2. Создайте файл .env.docker в папке askPPL/ (рядом с docker-compose.yaml).
+   SECRET_KEY=django-insecure-test-key-12345
+   DEBUG=True
+   ALLOWED_HOSTS=localhost,127.0.0.1
+   
+   DB_NAME=askppl_db
+   DB_USER=postgres
+   DB_PASSWORD=postgres
+   DB_HOST=db
+   DB_PORT=5432
+
+3. Соберите и запустите контейнеры:
    docker compose up --build -d
 
-3. Примените миграции внутри контейнера:
+4. Примените миграции внутри контейнера:
    docker compose exec web python manage.py migrate
 
-4. (Опционально) Наполните базу тестовыми данными через Docker:
+5. (Опционально) Наполните базу тестовыми данными через Docker:
    docker compose exec web python manage.py fill_db 10
 
-5. Откройте в браузере: http://127.0.0.1:8000
+6. Откройте в браузере: http://127.0.0.1:8000
 
-6. Для остановки контейнеров (данные в БД сохранятся благодаря volume):
+7. Для остановки контейнеров (данные в БД сохранятся благодаря volume):
    docker compose down
