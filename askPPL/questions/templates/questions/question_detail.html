@@ -31,7 +31,7 @@
                     {% for answer in page_obj %}
                     {% include 'questions/partials/answerpat.html' with obj=answer %}
                     {% empty %}
-                    <p>Пока нет ответов на этот вопрос.</p>
+                    <p>There are no answers to this question yet.</p>
                     {% endfor %}
                     {% include 'questions/partials/pagination.html' %}
                     </div>
