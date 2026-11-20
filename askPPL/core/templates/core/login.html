@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+            <form class="settingsp">
+                <h3>Log In</h3>
+                <p class="wrong">Sorry, wrong password!</p>
+                <div class="rowp">
+                    <label for="loginl">Login</label>
+                    <input id="loginl" name="login" type="text" placeholder="Enter your login here...">
+                </div>
+                <div class="rowp">
+                    <label for="passwordl">Password</label>
+                    <input id="passwordl" name="password" type="password" placeholder="Enter your password here...">
+                </div>
+                <button class="save" type="submit">Log in!</button>
+                <a href="{% url 'signup' %}">create new account</a>
+            </form>
+{% endblock %}
