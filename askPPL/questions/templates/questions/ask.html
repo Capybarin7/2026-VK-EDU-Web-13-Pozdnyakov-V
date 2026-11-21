@@ -1,19 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-            <h1>New Question</h1>
-            <form class="newquest">
-            <div>
-            <label for="message1">Title</label>
-            <textarea id="message1" name="message1" placeholder="Enter title..."></textarea>
-            </div>
-            <div>
-            <label for="message2">Text</label>
-            <textarea id="message2" name="message2" placeholder="Enter text..."></textarea>
-            </div>
-            <div>
-            <label for="message3">Tags</label>
-            <textarea id="message3" name="message3" placeholder="Enter tags (Optional: Add tags separated by commas)..."></textarea>
-            </div>
-            <button class="askquest" type="submit">ASK!</button>
-        </form>
+<h2>New Question</h2>
+<form method="post">
+    {% csrf_token %}
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="mb-3">
+        <label>Title</label>
+        {{ form.name }}
+    </div>
+    <div class="mb-3">
+        <label>Text</label>
+        {{ form.text }}
+    </div>
+    <div class="mb-3">
+        <label>Tags</label>
+        {{ form.tags_input }}
+    </div>
+    <button type="submit" class="btn btn-primary w-100">ASK!</button>
+</form>
 {% endblock %}

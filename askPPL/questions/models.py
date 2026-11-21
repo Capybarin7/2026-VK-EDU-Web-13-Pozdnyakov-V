@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+import os
+import uuid
 # Create your models here.
+
+def avatar_upload_path(instance, filename):
+    ext = os.path.splitext(filename)
+    return f"images/{uuid.uuid4()}{ext}"
 
 class QuestionManager(models.Manager):
     def latest(self):
@@ -15,7 +22,8 @@ class QuestionManager(models.Manager):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Пользователь")
-    avatar = models.ImageField(upload_to='images/', null=True, blank=True, default='images/default.png', verbose_name="Аватар")
+    nickname = models.CharField(max_length=50, blank=True, null=True, verbose_name="Ник")
+    avatar = models.ImageField(upload_to=avatar_upload_path, null=True, blank=True, default='images/default.png', verbose_name="Аватар")
     class Meta:
         verbose_name = "Профиль"
         verbose_name_plural = "Профили"
@@ -43,7 +51,7 @@ class Question(models.Model):
     def __str__(self):
         return self.name
     def get_absolute_url(self):
-        return f"/questions/{self.id}"
+        return reverse('question_detail', args=[self.id])
     def has_like(self, user: User):
         from questions.models import QuestionLike
         if not user.is_authenticated: return False

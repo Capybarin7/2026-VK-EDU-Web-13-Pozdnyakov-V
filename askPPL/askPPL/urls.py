@@ -16,22 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from questions import views as q_views
-from core import views as c_views
 from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', q_views.index, name='index'),
-    path('hot/', q_views.hot, name='hot'),
-    path('tag/<str:tag_name>/', q_views.tag, name='tag'),
-    path('question/<int:question_id>/', q_views.question_detail, name='question_detail'),
-    path('ask/', q_views.ask, name='ask'),
-    path('profile/', c_views.profile, name='profile'),
-    path('login/', c_views.login, name='login'),
-    path('signup/', c_views.signup, name='signup'),
+    path('', include('questions.urls')),
+    path('', include('core.urls')),
 ]
+
 if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     import debug_toolbar
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
     ]
+

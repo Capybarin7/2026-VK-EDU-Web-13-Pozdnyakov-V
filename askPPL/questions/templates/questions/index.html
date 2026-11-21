@@ -9,7 +9,7 @@
                     {% for question in questions %}
                     {% include 'questions/partials/questionpat.html' with obj=question %}
                     {% empty %}
-                    <p class="text-muted">Пока нет ни одного вопроса.</p>
+                    <p class="text-muted">There are no questions yet.</p>
                     {% endfor %}
                     {% include 'questions/partials/pagination.html' %}
                 </div>

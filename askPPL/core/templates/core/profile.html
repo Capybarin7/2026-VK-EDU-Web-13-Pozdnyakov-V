@@ -1,31 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
-            <form class="settingsp">
-                <h3>Settings: Nickname</h3>
-                <div class="rowp">
-                    <label for="loginp">Login</label>
-                    <input id="loginp" name="login" type="text" value="Nick" readonly>
-                </div>
-                <div class="rowp">
-                    <label for="emailp">Email</label>
-                    <input id="emailp" name="email" type="email" value="nick@mail.ru">
-                </div>
-                <div class="rowp">
-                    <label for="nicknamep">NickName</label>
-                    <input id="nicknamep" name="nickname" type="text" value="Nickname">
-                </div>
-                <div class="rowp">
-                    <label>Upload avatar</label>
-                    <div class="avatarlink">
-                    <div class="avatarp">
-                        <span>avatar</span>
-                    </div>
-                    <div>
-                        <input type="file">
-                        <button class="avchoose">choose</button>
-                    </div>
-                    </div>
-                </div>
-                <button class="save" type="submit">Save</button>
-            </form>
+<form class="settingsp" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h3>Settings: {{user.profile.nickname}}</h3>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <p class="wrong">{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <p class="wrong">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+    <div class="rowp">
+        <label for="loginp">Login</label>
+        <input id="loginp" name="login" type="text" value="{{ user.username }}" readonly>
+    </div>
+    <div class="rowp">
+        <label for="emailp">Email</label>
+        {{ form.email }}
+    </div>
+    <div class="rowp">
+        <label for="nicknamep">NickName</label>
+        {{ form.nickname }}
+    </div>
+    <div class="rowp">
+    <label for="id_avatar">Upload avatar</label>
+    <div class="d-flex align-items-center gap-3">
+        {% if user.profile.avatar %}
+            <img src="{{ MEDIA_URL }}{{ user.profile.avatar }}"
+                 alt="avatar"
+                 class="rounded-circle"
+                 style="width: 50px; height: 50px; object-fit: cover;">
+        {% endif %}
+        {{ form.avatar }}
+    </div>
+    </div>
+    <button class="save" type="submit">Save</button>
+</form>
 {% endblock %}

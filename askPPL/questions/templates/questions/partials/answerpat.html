@@ -1,21 +1,34 @@
-<section class="answer">
+<section class="answer" id="answer_{{ obj.id }}">
                         <div class="photolike">
                         <div class="d-flex flex-column align-items-center gap-3">
-                        <img class="rounded-circle object-fit-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs_l_LMJ0HukBt8HPg4hVDXxy3_4uct5DgDnes0ask6g&s" alt="Avatar">
+                        <img class="rounded-circle object-fit-cover" src="{{ MEDIA_URL }}{{ obj.author.avatar }}" alt="Avatar" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs_l_LMJ0HukBt8HPg4hVDXxy3_4uct5DgDnes0ask6g&s'">
                         </div>
                         </div>
                         <div>
                         <p class="questtext">{{ obj.text }}</p>
-                        <div class="d-flex align-items-center gap-1">
-                            <input type="checkbox" id="subscribe{{ obj.id }}" name="subscribe" {% if obj.isRight %}checked{% endif %} disabled>
+                        <div class="d-flex align-items-center gap-1" {% if not user.is_authenticated %}title="Log in to mark answer as correct"{% endif %}>
+                            <input type="checkbox" id="subscribe{{ obj.id }}" name="subscribe"
+                                   {% if obj.isRight %}checked{% endif %}
+                                   {% if not user.is_authenticated or user.profile != obj.question.author %}disabled{% else %}onclick="toggleCorrect({{ obj.id }}, this)"{% endif %}>
                             <label for="subscribe{{ obj.id }}">Correct!</label>
                         </div>
                         </div>
                         <div class="input-group input-group-sm w-auto ms-auto">
-                            <span class="input-group-text bg-white fw-bold px-2">{{ obj.likes_count }}</span>
+                            <span class="input-group-text bg-white fw-bold px-2" id="answer-like-count-{{ obj.id }}">{{ obj.likes_count }}</span>
+                            {% if user.is_authenticated %}
                             <div class="btn-group-vertical">
-                                <button type="button" class="btn btn-outline-secondary p-0 px-1 lh-1 border-bottom-0 rounded-0 fs-6">▲</button>
-                                <button type="button" class="btn btn-outline-secondary p-0 px-1 lh-1 rounded-0 fs-6">▼</button>
+                                <button type="button" id="like-btn-a-{{ obj.id }}" class="btn btn-outline-secondary p-0 px-1 lh-1 border-bottom-0 rounded-0 fs-6"
+                                onclick="likeAnswer({{ obj.id }}, this)"
+                                {% if obj.id in liked_a %}disabled{% endif %}>▲</button>
+                                <button type="button" id="unlike-btn-a-{{ obj.id }}" class="btn btn-outline-secondary p-0 px-1 lh-1 rounded-0 fs-6"
+                                onclick="unlikeAnswer({{ obj.id }}, this)"
+                                {% if obj.id not in liked_a %}disabled{% endif %}>▼</button>
                             </div>
+                            {% else %}
+                                <div class="btn-group-vertical" title="Log in to vote on this answer">
+                                    <button type="button" class="btn btn-outline-secondary p-0 px-1 lh-1 border-bottom-0 rounded-0 fs-6" disabled>▲</button>
+                                    <button type="button" class="btn btn-outline-secondary p-0 px-1 lh-1 rounded-0 fs-6" disabled>▼</button>
+                                </div>
+                            {% endif %}
                         </div>
                     </section>
