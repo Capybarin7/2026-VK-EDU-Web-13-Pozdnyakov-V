@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<form class="settingsp" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h3>Registration</h3>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <p class="wrong">{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <p class="wrong">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+    <div class="rowp">
+        <label for="logins">Login</label>
+        {{ form.username }}
+    </div>
+    <div class="rowp">
+        <label for="emails">Email</label>
+        {{ form.email }}
+    </div>
+    <div class="rowp">
+        <label for="nicknames">NickName</label>
+        {{ form.nickname }}
+    </div>
+    <div class="rowp">
+        <label for="passwords1">Password</label>
+        {{ form.password1 }}
+    </div>
+    <div class="rowp">
+        <label for="passwords2">Repeat password</label>
+        {{ form.password2 }}
+    </div>
+    <div class="rowp">
+        <label>Upload avatar</label>
+        {{ form.avatar }}
+    </div>
+    <button class="save" type="submit">Register!</button>
+</form>
+{% endblock %}

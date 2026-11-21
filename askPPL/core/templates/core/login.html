@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<form class="settingsp" method="post">
+    {% csrf_token %}
+    {% if next %}
+        <input type="hidden" name="next" value="{{ next }}">
+    {% endif %}
+    <h3>Log In</h3>
+    {% if form.errors %}
+        <p class="wrong">Sorry, wrong login or password!</p>
+    {% endif %}
+    <div class="rowp">
+        <label for="loginl">Login</label>
+        {{ form.username }}
+    </div>
+    <div class="rowp">
+        <label for="passwordl">Password</label>
+        {{ form.password }}
+    </div>
+    <button class="save" type="submit">Log in!</button>
+    <a href="{% url 'signup' %}">create new account</a>
+</form>
+{% endblock %}
